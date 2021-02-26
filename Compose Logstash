@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.11.1
+    container_name: logstash
+    restart: unless-stopped
+    volumes:
+      - /srv/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - /srv/logstash/config/log4j2.properties:/usr/share/logstash/config/log4j2.properties
+      - /srv/logstash/config/pipeline.yml:/usr/share/logstash/config/pipeline.yml
+      - /srv/logstash/config/gerencial/:/usr/share/logstash/gerencial/pipeline/
+      - /srv/logstash/config/conf.d/:/etc/logstash/conf.d
+      - /srv/logstash/config/plugins01/:/usr/share/logstash/gerencial/lib/jdbc
+      - /srv/logstash/config/pipeline/:/usr/share/logstash/pipeline/
+# Em ports vc especifica as portas dos beats que tem ou vai ter no ambiente
+    ports:
+      - "5045:5045"
+      - "5046:5046"
+      - "5047:5047"
+      - "5048:5048"
+      - "5049:5049"
+      - "5050:5050"
+      - "5051:5051"
+      - "5052:5052"
+      - "5053:5053"
+      - "5054:5054"
+      - "5055:5055"
+      - "5056:5056"
+      - "5057:5057"
+      - "5058:5058"
+      - "5059:5059"
+      - "5060:5060"
