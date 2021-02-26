@@ -1,0 +1,40 @@
+version: '3'
+services:
+  node01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.1
+    container_name: node01
+    environment: 
+      - node.name=node01
+      - network.host=0.0.0.0
+      - network.publish_host=xxx.xxx.xxx.xxx    
+      - cluster.name=es-docker-cluster
+      - ELASTIC_PASSWORD=password
+      - discovery.seed_hosts=node02,node03
+      - cluster.routing.allocation.enable=all  
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms12g -Xmx12g"
+      - xpack.security.enabled=true
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate
+      - xpack.security.transport.ssl.keystore.path=/usr/share/elasticsearch/config/certs/elastic-cert.p12
+      - xpack.security.transport.ssl.truststore.path=/usr/share/elasticsearch/config/certs/elastic-cert.p12
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1   
+    volumes:
+       - /srv/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+       - /srv/elasticsearch/config/jvm.options:/usr/share/elasticsearch/config/jvm.options
+       - /srv/elasticsearch/data:/usr/share/elasticsearch/data
+       - /srv/elasticsearch/config/certs/:/usr/share/elasticsearch/config/certs/ 
+    ports:
+       - 9200:9200
+       - 9300:9300
+    networks:
+       - elastic
+    dns:
+       - xxx.xxx.xxx.xxx
+
+networks:
+  elastic:
+    driver: bridge
