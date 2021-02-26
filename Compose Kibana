@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.11.1
+    container_name: kibana
+    restart: unless-stopped
+    volumes:
+      - /srv/kibana/config/kibana.yml:/usr/share/kibana/kibana.yml
+      - /srv/kibana/config/certs/:/usr/share/kibana/config/certs/
+    ports:
+      - "80:5601"
+      - "5601:5601"
+    networks:
+      - elastic
+    environment:
+      ELASTICSEARCH_URL: http://node01:9200/
+      ELASTICSEARCH_HOSTS: "http://node01:9200/", "http://node02:9200/", "http://node03:9200/"
+      ELASTICSEARCH_USERNAME: "elastic"
+      server.host: "0.0.0.0"
+      ELASTICSEARCH_PASSWORD: "password"
+      #- elasticsearch.ssl.certificateAuthorities=/usr/share/kibana/config/certs/elastic-cert.p12
+      #- elasticsearch.ssl.verificationMode=certificate
+
+
+networks:
+    elastic:
+      driver: bridge      
