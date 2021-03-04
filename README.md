@@ -1,4 +1,4 @@
-# Elastic Stack em docker compose
+# Elastic Stack em docker compose V1
 
 
 Elastic Stack com 3 nodes, Logstash e Kibana em hosts diferentes
