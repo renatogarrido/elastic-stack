@@ -3,11 +3,6 @@
 
 Elastic Stack com 3 nodes, Logstash e Kibana em hosts diferentes
 
-V1
-V1
-V1
-V1
-V1
 
 Os Compose do Elasticsearch estão nos arquivos Compose Node01, Compose Node02 e Compose Node03.
 
